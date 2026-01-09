@@ -1,0 +1,17 @@
+pydantic>=2
+requests
+tqdm>=4.66.0
+huggingface_hub[hf_xet]
+gradio>=4.40.0
+rapidfuzz>=3.9.0
+langdetect>=1.0.9
+qdrant-client>=1.9.1
+sentence-transformers>=3.0.1
+transformers>=4.43.0
+
+# New dependencies for OpenAI migration and FastAPI server
+openai>=1.1.0
+fastapi>=0.110.0
+uvicorn>=0.22.0
+
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu129

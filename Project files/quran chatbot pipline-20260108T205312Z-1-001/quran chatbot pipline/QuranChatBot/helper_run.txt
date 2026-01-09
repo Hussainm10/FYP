@@ -1,0 +1,15 @@
+# Start Qdrant in the background
+docker compose up -d
+
+# Verify Qdrant collections (should return ayah and word collections after indexing)
+curl http://localhost:6333/collections
+
+# Index ayahs and words using OpenAI embeddings (requires OPENAI_API_KEY)
+python -m indexing.index_ayahs
+python -m indexing.index_words
+
+# Launch the Gradio UI for interactive testing
+python app/gradio_ui.py
+
+# Or run the FastAPI server for programmatic access
+uvicorn app.fastapi_app:app --host 0.0.0.0 --port 8000
