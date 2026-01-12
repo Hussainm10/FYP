@@ -1,0 +1,15 @@
+PS D:\quran-local-test> cd D:\quran-local-test\quran-fastapi
+>>
+PS D:\quran-local-test\quran-fastapi> .\.venv\Scripts\Activate.ps1
+>>
+(.venv) PS D:\quran-local-test\quran-fastapi> python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+
+after running 
+
+Open these URLs
+
+UI: http://127.0.0.1:8000/
+
+Swagger: http://127.0.0.1:8000/docs
+
+Health: http://127.0.0.1:8000/health

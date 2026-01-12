@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Quran Local Test</title>
+  <style>
+    body { font-family: system-ui; max-width: 900px; margin: 24px auto; }
+    .ayah { font-size: 28px; direction: rtl; text-align: right; margin: 16px 0 6px; }
+    .en { font-size: 18px; direction: ltr; text-align: left; margin: 0 0 14px; color: #111; }
+    button { padding: 10px 14px; margin-right: 8px; font-size: 16px; cursor: pointer; }
+    .row { margin-top: 12px; }
+
+    .quizBox {
+      margin-top: 20px; padding: 14px; border: 1px solid #ddd; border-radius: 10px;
+      display: none;
+    }
+    .quizText { font-size: 18px; margin-bottom: 12px; }
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .optBtn { background: #f6f6f6; border: 1px solid #ccc; border-radius: 8px; }
+    .optBtn:hover { background: #eee; }
+    .result { margin-top: 10px; font-weight: 600; }
+    .muted { color: #666; font-size: 14px; margin-top: 6px; }
+    .tries { margin-top: 6px; font-size: 14px; color:#444; }
+    .progress { margin-top: 8px; font-size: 14px; color:#333; }
+    .reviewTag { font-size: 13px; color:#b00; font-weight: 600; margin-bottom: 6px; display:none; }
+  </style>
+</head>
+<body>
+  <h2>Ayah Screen (FastAPI Logic Test)</h2>
+
+  <div id="ayahText" class="ayah">Loading...</div>
+  <div id="ayahEn" class="en"></div>
+  <div class="progress" id="progressText"></div>
+
+  <button id="playBtn">Recite Ayah</button>
+
+  <div class="row">
+    <button id="yesBtn">Yes (I went through it)</button>
+    <button id="nextBtn">Next Ayah</button>
+  </div>
+
+  <!-- QUIZ UI -->
+  <div id="quizBox" class="quizBox">
+    <div id="reviewTag" class="reviewTag">REVIEW (failed quiz)</div>
+    <div id="quizText" class="quizText"></div>
+    <div id="triesText" class="tries"></div>
+    <div id="options" class="options"></div>
+    <div id="result" class="result"></div>
+    <div class="muted">Pick the missing word.</div>
+  </div>
+
+  <script>
+    const API_BASE = ""; // same-origin because UI is served from FastAPI
+
+    let lexicon = [];
+    let currentSurah = 1;
+    let currentAyah = 1;
+    let ayahsBySurah = {};
+    let globalVocab = [];
+
+    // ---- failed+review state ----
+    let failedBySurah = {};
+    let reviewQueue = [];
+    let inReviewMode = false;
+    let pendingNext = null;
+
+    // quiz state
+    let tries = 0;
+    let activeQuiz = null;
+
+    // audio state (toggle stop)
+    let currentAudio = null;
+
+    async function apiGet(url) {
+      const res = await fetch(API_BASE + url);
+      if (!res.ok) throw new Error("API error: " + res.status);
+      return res.json();
+    }
+
+    function buildAyahMap() {
+      ayahsBySurah = {};
+      for (const row of lexicon) {
+        const s = Number(row.surah);
+        const a = Number(row.ayah);
+        if (!ayahsBySurah[s]) ayahsBySurah[s] = new Set();
+        ayahsBySurah[s].add(a);
+      }
+      for (const s in ayahsBySurah) {
+        ayahsBySurah[s] = Array.from(ayahsBySurah[s]).sort((x, y) => x - y);
+      }
+    }
+
+    function buildGlobalVocab() {
+      const set = new Set();
+      for (const row of lexicon) {
+        const words = String(row.english || "")
+          .toLowerCase()
+          .replace(/[^a-z' -]/g, " ")
+          .split(/\s+/)
+          .filter(Boolean);
+        for (const w of words) set.add(w);
+      }
+      globalVocab = Array.from(set);
+    }
+
+    function hideTranslation() { document.getElementById("ayahEn").style.display = "none"; }
+    function showTranslation() { document.getElementById("ayahEn").style.display = "block"; }
+
+    function updateProgressUI() {
+      const key = `${currentSurah}:${currentAyah}`;
+      const done = JSON.parse(localStorage.getItem("doneAyahs") || "{}");
+      document.getElementById("progressText").textContent =
+        done[key] ? "✅ Marked as done" : "⬜ Not done yet";
+    }
+
+    // returns {surah, ayah, surahChanged, prevSurah, prevAyah}
+    function computeNextPosition() {
+      const prevSurah = currentSurah;
+      const prevAyah  = currentAyah;
+
+      const list = ayahsBySurah[currentSurah] || [];
+      const idx = list.indexOf(currentAyah);
+
+      if (idx >= 0 && idx < list.length - 1) {
+        return { surah: currentSurah, ayah: list[idx + 1], surahChanged: false, prevSurah, prevAyah };
+      } else {
+        let s = currentSurah + 1;
+        while (s <= 114 && (!ayahsBySurah[s] || ayahsBySurah[s].length === 0)) s++;
+        if (s <= 114) {
+          return { surah: s, ayah: ayahsBySurah[s][0], surahChanged: true, prevSurah, prevAyah };
+        } else {
+          return null;
+        }
+      }
+    }
+
+    function advanceAfterAyahComplete() {
+      const nextPos = computeNextPosition();
+      if (!nextPos) {
+        alert("Reached end of Quran data.");
+        return;
+      }
+
+      const prevS = nextPos.prevSurah;
+      const failedList = failedBySurah[prevS] || [];
+
+      if (nextPos.surahChanged && failedList.length > 0 && !inReviewMode) {
+        inReviewMode = true;
+        reviewQueue = failedList.slice();
+        pendingNext = { surah: nextPos.surah, ayah: nextPos.ayah };
+        startReviewQuiz(reviewQueue.shift());
+        return;
+      }
+
+      currentSurah = nextPos.surah;
+      currentAyah  = nextPos.ayah;
+      renderAyah();
+    }
+
+    // ---------- QUIZ UI ----------
+    function hideQuiz() {
+      document.getElementById("quizBox").style.display = "none";
+      document.getElementById("result").textContent = "";
+      document.getElementById("triesText").textContent = "";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("reviewTag").style.display = "none";
+      showTranslation();
+    }
+
+    function makeQuizObjFromCurrentAyah() {
+      const fullEn = document.getElementById("ayahText").dataset.english || "";
+      const tokens = fullEn.split(/\s+/).map(t => t.trim()).filter(Boolean);
+      if (tokens.length < 2) return null;
+
+      const missIdx = Math.floor(Math.random() * tokens.length);
+      const correct = tokens[missIdx];
+      const blanked = tokens.map((w, i) => i === missIdx ? "____" : w).join(" ");
+
+      const opts = new Set([correct]);
+      while (opts.size < 4) {
+        const r = globalVocab[Math.floor(Math.random() * globalVocab.length)];
+        if (r && r !== correct) opts.add(r);
+      }
+      const options = Array.from(opts).sort(() => Math.random() - 0.5);
+
+      return { surah: currentSurah, ayah: currentAyah, blanked, correct, options };
+    }
+
+    function startQuiz(quizObj, isReview=false) {
+      activeQuiz = quizObj;
+      tries = 0;
+
+      hideTranslation();
+      document.getElementById("quizBox").style.display = "block";
+      document.getElementById("quizText").textContent = quizObj.blanked;
+      document.getElementById("result").textContent = "";
+      document.getElementById("triesText").textContent = `Tries: 0 / 3`;
+      document.getElementById("reviewTag").style.display = isReview ? "block" : "none";
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      quizObj.options.forEach(opt => {
+        const b = document.createElement("button");
+        b.className = "optBtn";
+        b.textContent = opt;
+
+        b.onclick = () => {
+          if (!activeQuiz) return;
+
+          if (opt === activeQuiz.correct) {
+            document.getElementById("result").textContent = "✅ Correct!";
+            finishQuizCorrect(isReview);
+            return;
+          }
+
+          tries += 1;
+          document.getElementById("triesText").textContent = `Tries: ${tries} / 3`;
+
+          if (tries >= 3) {
+            document.getElementById("result").textContent = "❌ 3 wrong. Moving on.";
+
+            if (!isReview) {
+              if (!failedBySurah[currentSurah]) failedBySurah[currentSurah] = [];
+              failedBySurah[currentSurah].push(activeQuiz);
+            }
+
+            finishQuizFailed(isReview);
+          } else {
+            document.getElementById("result").textContent = `❌ Wrong. Try again.`;
+          }
+        };
+
+        optionsDiv.appendChild(b);
+      });
+    }
+
+    function finishQuizCorrect(isReview) {
+      const doneKey = `${currentSurah}:${currentAyah}`;
+      const done = JSON.parse(localStorage.getItem("doneAyahs") || "{}");
+      done[doneKey] = true;
+      localStorage.setItem("doneAyahs", JSON.stringify(done));
+      updateProgressUI();
+
+      setTimeout(() => {
+        if (isReview) advanceReviewQueue();
+        else advanceAfterAyahComplete();
+      }, 400);
+    }
+
+    function finishQuizFailed(isReview) {
+      setTimeout(() => {
+        if (isReview) advanceReviewQueue();
+        else advanceAfterAyahComplete();
+      }, 500);
+    }
+
+    function startReviewQuiz(obj) {
+      currentSurah = obj.surah;
+      currentAyah  = obj.ayah;
+      renderAyah();
+      startQuiz(obj, true);
+    }
+
+    function advanceReviewQueue() {
+      if (reviewQueue.length > 0) {
+        startReviewQuiz(reviewQueue.shift());
+        return;
+      }
+      inReviewMode = false;
+      const nxt = pendingNext;
+      pendingNext = null;
+
+      if (nxt) {
+        currentSurah = nxt.surah;
+        currentAyah  = nxt.ayah;
+        renderAyah();
+      }
+    }
+
+    // ---------- RENDER AYAH FROM API ----------
+    async function renderAyah() {
+      hideQuiz();
+      try {
+        const data = await apiGet(`/api/ayah/${currentSurah}/${currentAyah}`);
+
+        document.getElementById("ayahText").textContent = data.arabic || "(ayah not found)";
+        document.getElementById("ayahEn").textContent = data.english || "";
+        document.getElementById("ayahText").dataset.english = data.english || "";
+
+        document.getElementById("playBtn").dataset.audioUrl = (data.audio_url || "");
+
+        showTranslation();
+        updateProgressUI();
+      } catch (e) {
+        console.error(e);
+        document.getElementById("ayahText").textContent = "❌ Ayah not found via API";
+        document.getElementById("ayahEn").textContent = "";
+        document.getElementById("playBtn").dataset.audioUrl = "";
+      }
+    }
+
+    // ---------- AUDIO ----------
+    function cleanAudioUrl(u) {
+      if (!u) return "";
+      u = String(u).trim();
+      const m = u.match(/.*?\.wav/i);
+      if (m) u = m[0];
+      if (!u.startsWith("/static/ayahs_wav/")) {
+        const idx = u.indexOf("ayahs_wav/");
+        if (idx >= 0) u = "/static/" + u.slice(idx);
+      }
+      return u;
+    }
+
+    document.getElementById("playBtn").onclick = () => {
+      if (currentAudio && !currentAudio.paused) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        return;
+      }
+
+      let url = cleanAudioUrl(document.getElementById("playBtn").dataset.audioUrl);
+
+      if (!url) {
+        const pad3 = (n) => String(n).padStart(3, "0");
+        const sss = pad3(currentSurah);
+        const aaa = pad3(currentAyah);
+        url = `/static/ayahs_wav/sura_${sss}/${sss}_${aaa}.wav`;
+      }
+
+      currentAudio = new Audio(url);
+      currentAudio.onerror = () => alert("Audio not found at: " + url);
+      currentAudio.play();
+    };
+
+    // ---------- BUTTONS ----------
+    document.getElementById("yesBtn").onclick = () => {
+      const q = makeQuizObjFromCurrentAyah();
+      if (!q) return alert("Not enough English words to quiz this ayah.");
+      startQuiz(q, false);
+    };
+
+    document.getElementById("nextBtn").onclick = () => {
+      const nextPos = computeNextPosition();
+      if (!nextPos) return alert("Reached end of Quran data.");
+      currentSurah = nextPos.surah;
+      currentAyah  = nextPos.ayah;
+      renderAyah();
+    };
+
+    // ---------- INIT ----------
+    async function loadData() {
+      try {
+        lexicon = await apiGet("/api/lexicon");
+        buildAyahMap();
+        buildGlobalVocab();
+
+        // ✅ IMPORTANT FIX: start from the first available surah/ayah
+        const surahNums = Object.keys(ayahsBySurah).map(Number).sort((a,b)=>a-b);
+        if (surahNums.length === 0) throw new Error("No surahs found in lexicon");
+        currentSurah = surahNums[0];
+        currentAyah = ayahsBySurah[currentSurah][0];
+
+        renderAyah();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("ayahText").textContent =
+          "❌ Failed to load data from API. Check Console.";
+        alert(err.message);
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
