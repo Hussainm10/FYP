@@ -1,0 +1,74 @@
+unit_id,surah_id,ayah_id,word_id,unit_type,text_ar,text_clean,text_translit,ref_audio_relpath,expected_duration_sec,min_duration_sec,max_duration_sec,good_threshold,intermediate_threshold,max_good_duration_factor,difficulty,active,notes
+112_001_001,112,1,1,word,قُلۡ,قل,qul,wav/words_wav/sura_112/ayah_001/112_001_001.wav,0.731,0.366,2.194,0.8443,0.7,3,1,1,audio_available
+112_001_002,112,1,2,word,هُوَ,هو,huwa,wav/words_wav/sura_112/ayah_001/112_001_002.wav,0.627,0.313,1.881,0.8447,0.7,3,1,1,audio_available
+112_001_003,112,1,3,word,ٱللَّهُ,ٱلله,al-lahu,wav/words_wav/sura_112/ayah_001/112_001_003.wav,1.254,0.627,3.762,0.7552,0.7,3,1,1,audio_available
+112_001_004,112,1,4,word,أَحَدٌ,أحد,ahadun,wav/words_wav/sura_112/ayah_001/112_001_004.wav,0.94,0.47,2.821,0.8025,0.7,3,1,1,audio_available
+112_002_001,112,2,1,word,ٱللَّهُ,ٱلله,al-lahu,wav/words_wav/sura_112/ayah_002/112_002_001.wav,1.332,0.666,3.997,0.7552,0.7,3,1,1,audio_available
+112_002_002,112,2,2,word,ٱلصَّمَدُ,ٱلصمد,al-samadu,wav/words_wav/sura_112/ayah_002/112_002_002.wav,1.149,0.575,3.448,0.6752,0.7,3,1,1,audio_available
+112_003_001,112,3,1,word,لَمۡ,لم,lam,wav/words_wav/sura_112/ayah_003/112_003_001.wav,0.784,0.392,2.351,0.8309,0.7,3,1,1,audio_available
+112_003_002,112,3,2,word,يَلِدۡ,يلد,yalid,wav/words_wav/sura_112/ayah_003/112_003_002.wav,0.967,0.483,2.9,0.7416,0.7,3,1,1,audio_available
+112_003_003,112,3,3,word,وَلَمۡ,ولم,walam,wav/words_wav/sura_112/ayah_003/112_003_003.wav,1.071,0.536,3.213,0.7727,0.7,3,1,1,audio_available
+112_003_004,112,3,4,word,يُولَدۡ,يولد,yulad,wav/words_wav/sura_112/ayah_003/112_003_004.wav,1.071,0.536,3.213,0.7955,0.7,3,1,1,audio_available
+112_004_001,112,4,1,word,وَلَمۡ,ولم,walam,wav/words_wav/sura_112/ayah_004/112_004_001.wav,0.836,0.418,2.508,0.7727,0.7,3,1,1,audio_available
+112_004_002,112,4,2,word,يَكُن,يكن,yakun,wav/words_wav/sura_112/ayah_004/112_004_002.wav,0.94,0.47,2.821,0.7673,0.7,3,1,1,audio_available
+112_004_003,112,4,3,word,لَّهُۥ,له,lahu,wav/words_wav/sura_112/ayah_004/112_004_003.wav,1.045,0.522,3.135,0.7293,0.7,3,1,1,audio_available
+112_004_004,112,4,4,word,كُفُوًا,كفوا,kufuwan,wav/words_wav/sura_112/ayah_004/112_004_004.wav,1.176,0.588,3.527,0.7249,0.7,3,1,1,audio_available
+112_004_005,112,4,5,word,أَحَدُۢ,أحد,ahadun,wav/words_wav/sura_112/ayah_004/112_004_005.wav,0.967,0.483,2.9,0.8025,0.7,3,1,1,audio_available
+113_001_001,113,1,1,word,قُلۡ,قل,qul,wav/words_wav/sura_113/ayah_001/113_001_001.wav,0.679,0.34,2.038,0.8443,0.7,3,1,1,audio_available
+113_001_002,113,1,2,word,أَعُوذُ,أعوذ,a'udhu,wav/words_wav/sura_113/ayah_001/113_001_002.wav,1.019,0.509,3.056,0.7332,0.7,3,1,1,audio_available
+113_001_003,113,1,3,word,بِرَبِّ,برب,birabbi,wav/words_wav/sura_113/ayah_001/113_001_003.wav,1.176,0.588,3.527,0.7292,0.7,3,1,1,audio_available
+113_001_004,113,1,4,word,ٱلۡفَلَقِ,ٱلفلق,al-falaqi,wav/words_wav/sura_113/ayah_001/113_001_004.wav,1.358,0.679,4,0.6729,0.7,3,1,1,audio_available
+113_002_001,113,2,1,word,مِن,من,min,wav/words_wav/sura_113/ayah_002/113_002_001.wav,0.679,0.34,2.038,0.8131,0.7,3,1,1,audio_available
+113_002_002,113,2,2,word,شَرِّ,شر,sharri,wav/words_wav/sura_113/ayah_002/113_002_002.wav,0.914,0.457,2.743,0.6865,0.7,3,1,1,audio_available
+113_002_003,113,2,3,word,مَا,ما,ma,wav/words_wav/sura_113/ayah_002/113_002_003.wav,0.758,0.379,2.273,0.8096,0.7,3,1,1,audio_available
+113_002_004,113,2,4,word,خَلَقَ,خلق,khalaqa,wav/words_wav/sura_113/ayah_002/113_002_004.wav,0.94,0.47,2.821,0.7749,0.7,3,1,1,audio_available
+113_003_001,113,3,1,word,وَمِن,ومن,wamin,wav/words_wav/sura_113/ayah_003/113_003_001.wav,0.94,0.47,2.821,0.8056,0.7,3,1,1,audio_available
+113_003_002,113,3,2,word,شَرِّ,شر,sharri,wav/words_wav/sura_113/ayah_003/113_003_002.wav,1.019,0.509,3.056,0.6865,0.7,3,1,1,audio_available
+113_003_003,113,3,3,word,غَاسِقٍ,غاسق,ghasiqin,wav/words_wav/sura_113/ayah_003/113_003_003.wav,1.437,0.718,4,0.6662,0.7,3,1,1,audio_available
+113_003_004,113,3,4,word,إِذَا,إذا,idha,wav/words_wav/sura_113/ayah_003/113_003_004.wav,0.94,0.47,2.821,0.796,0.7,3,1,1,audio_available
+113_003_005,113,3,5,word,وَقَبَ,وقب,waqaba,wav/words_wav/sura_113/ayah_003/113_003_005.wav,0.967,0.483,2.9,0.8365,0.7,3,1,1,audio_available
+113_004_001,113,4,1,word,وَمِن,ومن,wamin,wav/words_wav/sura_113/ayah_004/113_004_001.wav,0.862,0.431,2.586,0.8056,0.7,3,1,1,audio_available
+113_004_002,113,4,2,word,شَرِّ,شر,sharri,wav/words_wav/sura_113/ayah_004/113_004_002.wav,0.967,0.483,2.9,0.6865,0.7,3,1,1,audio_available
+113_004_003,113,4,3,word,ٱلنَّفَّٰثَٰتِ,ٱلنفٰثٰت,al-nafathati,wav/words_wav/sura_113/ayah_004/113_004_003.wav,2.769,1.384,4,0.4713,0.7,3,1,1,audio_available
+113_004_004,113,4,4,word,فِي,في,fi,wav/words_wav/sura_113/ayah_004/113_004_004.wav,0.836,0.418,2.508,0.7873,0.7,3,1,1,audio_available
+113_004_005,113,4,5,word,ٱلۡعُقَدِ,ٱلعقد,al-'uqadi,wav/words_wav/sura_113/ayah_004/113_004_005.wav,1.28,0.64,3.84,0.7426,0.7,3,1,1,audio_available
+113_005_001,113,5,1,word,وَمِن,ومن,wamin,wav/words_wav/sura_113/ayah_005/113_005_001.wav,0.784,0.392,2.351,0.8056,0.7,3,1,1,audio_available
+113_005_002,113,5,2,word,شَرِّ,شر,sharri,wav/words_wav/sura_113/ayah_005/113_005_002.wav,0.967,0.483,2.9,0.6865,0.7,3,1,1,audio_available
+113_005_003,113,5,3,word,حَاسِدٍ,حاسد,hasidin,wav/words_wav/sura_113/ayah_005/113_005_003.wav,1.332,0.666,3.997,0.6611,0.7,3,1,1,audio_available
+113_005_004,113,5,4,word,إِذَا,إذا,idha,wav/words_wav/sura_113/ayah_005/113_005_004.wav,0.914,0.457,2.743,0.796,0.7,3,1,1,audio_available
+113_005_005,113,5,5,word,حَسَدَ,حسد,hasada,wav/words_wav/sura_113/ayah_005/113_005_005.wav,0.967,0.483,2.9,0.7291,0.7,3,1,1,audio_available
+114_001_001,114,1,1,word,قُلۡ,قل,qul,wav/words_wav/sura_114/ayah_001/114_001_001.wav,0.627,0.313,1.881,0.8443,0.7,3,1,1,audio_available
+114_001_002,114,1,2,word,أَعُوذُ,أعوذ,a'udhu,wav/words_wav/sura_114/ayah_001/114_001_002.wav,1.097,0.549,3.291,0.7332,0.7,3,1,1,audio_available
+114_001_003,114,1,3,word,بِرَبِّ,برب,birabbi,wav/words_wav/sura_114/ayah_001/114_001_003.wav,1.019,0.509,3.056,0.7292,0.7,3,1,1,audio_available
+114_001_004,114,1,4,word,ٱلنَّاسِ,ٱلناس,al-nasi,wav/words_wav/sura_114/ayah_001/114_001_004.wav,2.508,1.254,4,0.3815,0.7,3,1,1,audio_available
+114_002_001,114,2,1,word,مَلِكِ,ملك,maliki,wav/words_wav/sura_114/ayah_002/114_002_001.wav,0.967,0.483,2.9,0.6916,0.7,3,1,1,audio_available
+114_002_002,114,2,2,word,ٱلنَّاسِ,ٱلناس,al-nasi,wav/words_wav/sura_114/ayah_002/114_002_002.wav,2.377,1.189,4,0.3815,0.7,3,1,1,audio_available
+114_003_001,114,3,1,word,إِلَٰهِ,إلٰه,ilahi,wav/words_wav/sura_114/ayah_003/114_003_001.wav,1.071,0.536,3.213,0.6936,0.7,3,1,1,audio_available
+114_003_002,114,3,2,word,ٱلنَّاسِ,ٱلناس,al-nasi,wav/words_wav/sura_114/ayah_003/114_003_002.wav,2.612,1.306,4,0.3815,0.7,3,1,1,audio_available
+114_004_001,114,4,1,word,مِن,من,min,wav/words_wav/sura_114/ayah_004/114_004_001.wav,0.627,0.313,1.881,0.8131,0.7,3,1,1,audio_available
+114_004_002,114,4,2,word,شَرِّ,شر,sharri,wav/words_wav/sura_114/ayah_004/114_004_002.wav,0.967,0.483,2.9,0.6865,0.7,3,1,1,audio_available
+114_004_003,114,4,3,word,ٱلۡوَسۡوَاسِ,ٱلوسواس,al-waswasi,wav/words_wav/sura_114/ayah_004/114_004_003.wav,1.646,0.823,4,0.5345,0.7,3,1,1,audio_available
+114_004_004,114,4,4,word,ٱلۡخَنَّاسِ,ٱلخناس,al-khanasi,wav/words_wav/sura_114/ayah_004/114_004_004.wav,3.056,1.528,4,0.3745,0.7,3,1,1,audio_available
+114_005_001,114,5,1,word,ٱلَّذِي,ٱلذي,alladhi,wav/words_wav/sura_114/ayah_005/114_005_001.wav,1.228,0.614,3.683,0.6771,0.7,3,1,1,audio_available
+114_005_002,114,5,2,word,يُوَسۡوِسُ,يوسوس,yuwaswisu,wav/words_wav/sura_114/ayah_005/114_005_002.wav,1.358,0.679,4,0.6365,0.7,3,1,1,audio_available
+114_005_003,114,5,3,word,فِي,في,fi,wav/words_wav/sura_114/ayah_005/114_005_003.wav,0.679,0.34,2.038,0.7873,0.7,3,1,1,audio_available
+114_005_004,114,5,4,word,صُدُورِ,صدور,suduri,wav/words_wav/sura_114/ayah_005/114_005_004.wav,1.228,0.614,3.683,0.6973,0.7,3,1,1,audio_available
+114_005_005,114,5,5,word,ٱلنَّاسِ,ٱلناس,al-nasi,wav/words_wav/sura_114/ayah_005/114_005_005.wav,2.456,1.228,4,0.3815,0.7,3,1,1,audio_available
+114_006_001,114,6,1,word,مِنَ,من,mina,wav/words_wav/sura_114/ayah_006/114_006_001.wav,0.862,0.431,2.586,0.7416,0.7,3,1,1,audio_available
+114_006_002,114,6,2,word,ٱلۡجِنَّةِ,ٱلجنة,al-jinati,wav/words_wav/sura_114/ayah_006/114_006_002.wav,2.064,1.032,4,0.6004,0.7,3,1,1,audio_available
+114_006_003,114,6,3,word,وَٱلنَّاسِ,وٱلناس,wal-nasi,wav/words_wav/sura_114/ayah_006/114_006_003.wav,2.769,1.384,4,0.3971,0.7,3,1,1,audio_available
+112_001,112,1,0,ayah,قُلۡ هُوَ ٱللَّهُ أَحَدٌ,قل هو ٱلله أحد,qul huwa al-lahu ahadun,wav/ayahs_wav/sura_112/112_001.wav,2.917,1.75,5.834,0.85,0.7,2,2,1,audio_available
+112_002,112,2,0,ayah,ٱللَّهُ ٱلصَّمَدُ,ٱلله ٱلصمد,al-lahu al-samadu,wav/ayahs_wav/sura_112/112_002.wav,2.486,1.491,4.972,0.85,0.7,2,2,1,audio_available
+112_003,112,3,0,ayah,لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ,لم يلد ولم يولد,lam yalid walam yulad,wav/ayahs_wav/sura_112/112_003.wav,2.917,1.75,5.834,0.85,0.7,2,2,1,audio_available
+112_004,112,4,0,ayah,وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ,ولم يكن له كفوا أحد,walam yakun lahu kufuwan ahadun,wav/ayahs_wav/sura_112/112_004.wav,4.805,2.883,9.609,0.85,0.7,2,2,1,audio_available
+113_001,113,1,0,ayah,قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ,قل أعوذ برب ٱلفلق,qul a'udhu birabbi al-falaqi,wav/ayahs_wav/sura_113/113_001.wav,3.418,2.051,6.835,0.85,0.7,2,2,1,audio_available
+113_002,113,2,0,ayah,مِن شَرِّ مَا خَلَقَ,من شر ما خلق,min sharri ma khalaqa,wav/ayahs_wav/sura_113/113_002.wav,3.592,2.155,7.184,0.85,0.7,2,2,1,audio_available
+113_003,113,3,0,ayah,وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ,ومن شر غاسق إذا وقب,wamin sharri ghasiqin idha waqaba,wav/ayahs_wav/sura_113/113_003.wav,4.989,2.993,9.978,0.85,0.7,2,2,1,audio_available
+113_004,113,4,0,ayah,وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلۡعُقَدِ,ومن شر ٱلنفٰثٰت في ٱلعقد,wamin sharri al-nafathati fi al-'uqadi,wav/ayahs_wav/sura_113/113_004.wav,5.964,3.579,11.929,0.85,0.7,2,2,1,audio_available
+113_005,113,5,0,ayah,وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ,ومن شر حاسد إذا حسد,wamin sharri hasidin idha hasada,wav/ayahs_wav/sura_113/113_005.wav,5.604,3.362,11.207,0.85,0.7,2,2,1,audio_available
+114_001,114,1,0,ayah,قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ,قل أعوذ برب ٱلناس,qul a'udhu birabbi al-nasi,wav/ayahs_wav/sura_114/114_001.wav,6.071,3.642,12.141,0.6074,0.7,2,2,1,audio_available
+114_002,114,2,0,ayah,مَلِكِ ٱلنَّاسِ,ملك ٱلناس,maliki al-nasi,wav/ayahs_wav/sura_114/114_002.wav,5.211,3.127,10.423,0.615,0.7,2,2,1,audio_available
+114_003,114,3,0,ayah,إِلَٰهِ ٱلنَّاسِ,إلٰه ٱلناس,ilahi al-nasi,wav/ayahs_wav/sura_114/114_003.wav,5.292,3.175,10.585,0.6555,0.7,2,2,1,audio_available
+114_004,114,4,0,ayah,مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ,من شر ٱلوسواس ٱلخناس,min sharri al-waswasi al-khanasi,wav/ayahs_wav/sura_114/114_004.wav,7.944,4.766,15.888,0.5108,0.7,2,2,1,audio_available
+114_005,114,5,0,ayah,ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ,ٱلذي يوسوس في صدور ٱلناس,alladhi yuwaswisu fi suduri al-nasi,wav/ayahs_wav/sura_114/114_005.wav,7.852,4.711,15.705,0.423,0.7,2,2,1,audio_available
+114_006,114,6,0,ayah,مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ,من ٱلجنة وٱلناس,mina al-jinati wal-nasi,wav/ayahs_wav/sura_114/114_006.wav,8.192,4.915,16.383,0.5585,0.7,2,2,1,audio_available
